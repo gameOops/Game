@@ -1,0 +1,39 @@
+a:2:{s:5:"form1";a:5:{s:7:"button1";a:1:{s:7:"onclick";s:522:"$r= file_get_contents("http://kvonti.tw1.ru/api.php?act=0&login=".c("login")->text."&pass=".c("pass")->text);
+$r= iconv('utf-8','windows-1251',$r);
+Global $pc;
+$pc = 1;
+switch($r) {
+    case 1:
+        echo 'Вы успешно вошли!';
+        writeRegKey(HKEY_CURRENT_USER, "Console/DC", $pc, DWORD);
+        HideForm(Form1, SW_SHOW);
+        ShowForm(Launcher, SW_SHOW);
+    break;
+    case 404:
+        echo 'Неверный логин или пароль';
+    break;
+
+    default:
+        echo 'Сервер не отвечает';
+    break;
+}";}s:5:"login";N;s:4:"pass";N;s:8:"--fmedit";a:1:{s:8:"oncreate";s:200:"GLOBAL $log;
+readRegKey(HKEY_CURRENT_USER, "Console/DC", $log, DWORD);
+if ($log == 1) {
+    LoadForm(Launcher, LD_NONE);
+    HideForm(Form1, SW_SHOW);
+} else {
+   HideForm(Launcher, SW_SHOW);
+}";}s:6:"image1";a:0:{}}s:8:"launcher";a:5:{s:7:"button1";a:1:{s:7:"onclick";s:84:"Global $pc;
+$pc = '0';
+
+writeRegKey(HKEY_CURRENT_USER, "Console/DC", $pc, DWORD);";}s:7:"button2";a:1:{s:7:"onclick";s:283:"$ver = c('version')->inText;
+if(file_exists("/data/versions/$ver")) {
+
+echo "Данная версия уже скачана!";
+Run("/data/versions/$ver", false);
+} else {
+c("download")->url = "http://kvonti.tw1.ru/versions/$ver";
+c("download")->path = "data/versions/";
+c("download")->start();
+}";}s:7:"version";a:1:{s:8:"onchange";s:44:"Global $vers;
+$vers = c('version')->inText;";}s:7:"myfunc1";a:1:{s:9:"onexecute";s:0:"";}s:8:"download";N;}}
